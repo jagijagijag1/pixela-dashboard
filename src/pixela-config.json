@@ -1,0 +1,7 @@
+{
+  "user": "<user-id>",
+  "graphs" : [
+    "<your-graph-id-1>",
+    "<your-graph-id-2>"
+  ]
+}
