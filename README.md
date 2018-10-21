@@ -12,6 +12,7 @@ The dashboard currently supports:
 ## Project setup
 ### 1. install
 ```
+git clone https://github.com/jagijagijag1/pixela-dashboard
 yarn install
 ```
 
@@ -26,7 +27,7 @@ Describe your pixela info to `src/pixlea-config.json`
   "graphs" : [
     "<your-graph-id-1>",
     "<your-graph-id-2>",
-    ...
+    "<your-graph-id-3>",
   ]
 }
 ```
