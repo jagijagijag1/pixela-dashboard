@@ -22,8 +22,8 @@ yarn install
 
 If you don't have user/graphs on Pixela, create your own at first.
 
-Describe your pixela info to `src/pixlea-config.json`
-```json:src/pixlea-config.json
+Describe your pixela info to `src/pixela-config.json`
+```json:src/pixela-config.json
 {
   "user": "<your-user-id>",
   "graphs" : [
@@ -58,7 +58,7 @@ git clone -b heroku-deploy https://github.com/jagijagijag1/pixela-dashboard
 cd pixela-dashboard
 ```
 
-Next, modify the `src/pixlea-config.json` file, then
+Next, modify the `src/pixela-config.json` file, then
 
 ```bash
 yarn install
