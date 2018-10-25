@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.7.2",
+    "bulma-extensions": "^3.0.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-vue": "^4.7.1",
     "node-sass": "^4.9.4",
