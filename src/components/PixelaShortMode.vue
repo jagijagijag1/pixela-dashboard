@@ -1,84 +1,79 @@
 <template>
-  <div class="pixela">
-    <h2 class="title is-5">{{ graphName }}</h2>
+  <div
+    class="pixela column is-narrow"
+    style="width: 290px;">
+    <article class="message">
+      <div class="message-header has-background-grey">
+        <p>{{ graphName }}</p>
+      </div>
 
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
+      <div class="message-body">
+        <!--<p class="title is-5">{{ graphName }}</p>-->
+        <div
+          class="has-text-centered"
+          style="margin-bottom: 15px;">
           <embed
             v-if="loaded"
-            :src="graphUrl"
-            width="720"
-            style="display: inline-block"
-            class="is-pulled-right">
+            :src="graphUrl + shortModeSuffix">
         </div>
 
-        <div class="level-item">
-          <div>
-            <div class="field is-horizontal">
-              <div class="field-label is-small">
-                <label class="label">Date&ensp;&ensp;&ensp;&ensp;</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input 
-                      v-model="date" 
-                      type="text" 
-                      class="input is-small">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field is-horizontal">
-              <div class="field-label is-small">
-                <label class="label">Quantity</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input 
-                      v-model="quantity" 
-                      type="text" 
-                      class="input is-small">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field is-horizontal">
-              <div class="field-label is-small"/>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <button 
-                      :class="{ 'is-loading': isRecording }"
-                      class="button is-primary is-small" 
-                      @click="recordData">Record</button>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <button 
-                      :class="{ 'is-loading': isUpdating }"
-                      class="button is-link is-small" 
-                      @click="updateData">Update</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p 
-              v-if="isSuccess"
-              class="help is-success is-center">{{ msg }}</p>
-            <p 
-              v-if="!isSuccess" 
-              class="help is-danger is-center">{{ msg }}</p>
+        <div
+          class="columns is-vcentered is-marginless is-centered"
+          style="padding-bottom: 5px;">
+          <div class="column is-narrow is-paddingless">
+            <label
+              class="label is-small"
+              style="width: 60px;">Data</label>
+          </div>
+          <div class="column is-narrow is-paddingless">
+            <input 
+              v-model="date" 
+              type="text" 
+              style="width: 100px;"
+              class="input is-small">
           </div>
         </div>
+
+        <div
+          class="columns is-vcentered is-marginless is-centered"
+          style="padding-bottom: 5px;">
+          <div class="column is-narrow is-paddingless">
+            <label
+              class="label is-small"
+              style="width: 60px;">Quantity</label>
+          </div>
+          <div class="column is-narrow is-paddingless">
+            <input 
+              v-model="quantity" 
+              type="text" 
+              style="width: 100px;"
+              class="input is-small">
+          </div>
+        </div>
+
+        <div class="columns is-centered is-marginless">
+          <div class="column is-narrow">
+              <button 
+                :class="{ 'is-loading': isRecording }"
+                class="button is-primary is-small" 
+                @click="recordData">Record</button>
+          </div>
+          <div class="column is-narrow ">
+              <button 
+                :class="{ 'is-loading': isUpdating }"
+                class="button is-link is-small" 
+                @click="updateData">Update</button>
+          </div>
+        </div>
+        <p 
+          v-if="isSuccess"
+          class="help is-success is-center">{{ msg }}</p>
+        <p 
+          v-if="!isSuccess" 
+          class="help is-danger is-center">{{ msg }}</p>
+
       </div>
-      <div class="level-right"/>
-    </div>
+    </article>
   </div>
 </template>
 
@@ -109,7 +104,8 @@ export default {
       msg: '',
       isSuccess: null,
       isRecording: false,
-      isUpdating: false
+      isUpdating: false,
+      shortModeSuffix: '?mode=short'
     }
   },
   created() {
