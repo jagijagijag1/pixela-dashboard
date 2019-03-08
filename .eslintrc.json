@@ -9,6 +9,6 @@
     "node": true
   },
   "rules": {
-    "no-console": "warn"
+    "no-console": "off"
   }
 }
