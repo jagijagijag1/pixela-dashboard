@@ -49,22 +49,3 @@ yarn run build
 ```
 
 then put the files under `dist` to AWS S3 bucket or any other website hosting services as you like.
-
-## Heroku deployment
-If you want to deploy this app to Heroku, please refer to the following:
-
-```bash
-git clone -b heroku-deploy https://github.com/jagijagijag1/pixela-dashboard
-cd pixela-dashboard
-```
-
-Next, modify the `src/pixela-config.json` file, then
-
-```bash
-yarn install
-yarn run build
-heroku create <your-own-app-name>
-git add .
-git commit -m "ADD: dist files"
-git push heroku heroku-deploy:master --force
-```
