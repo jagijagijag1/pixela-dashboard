@@ -12,9 +12,9 @@
         <div
           class="has-text-centered"
           style="margin-bottom: 15px;">
-          <embed
+          <div
             v-if="loaded"
-            :src="graphUrl + shortModeSuffix">
+            v-html="svg"/>
         </div>
 
         <div
@@ -53,16 +53,16 @@
 
         <div class="columns is-centered is-marginless">
           <div class="column is-narrow">
-              <button 
-                :class="{ 'is-loading': isRecording }"
-                class="button is-primary is-small" 
-                @click="recordData">Record</button>
+            <button 
+              :class="{ 'is-loading': isRecording }"
+              class="button is-primary is-small" 
+              @click="recordData">Record</button>
           </div>
           <div class="column is-narrow ">
-              <button 
-                :class="{ 'is-loading': isUpdating }"
-                class="button is-link is-small" 
-                @click="updateData">Update</button>
+            <button 
+              :class="{ 'is-loading': isUpdating }"
+              class="button is-link is-small" 
+              @click="updateData">Update</button>
           </div>
         </div>
         <p 
@@ -79,6 +79,7 @@
 
 <script>
 import axios from 'axios';
+import tippy from 'tippy.js';
 
 export default {
   props: {
@@ -105,7 +106,8 @@ export default {
       isSuccess: null,
       isRecording: false,
       isUpdating: false,
-      shortModeSuffix: '?mode=short'
+      shortModeSuffix: '?mode=short',
+      svg: ''
     }
   },
   created() {
@@ -118,6 +120,14 @@ export default {
     var MM = ('0' + (dateObj.getMonth() + 1)).slice(-2)
     var dd = ('0' + dateObj.getDate()).slice(-2)
     this.date = yyyy + MM + dd
+
+    // get svg content
+    axios.get(this.graphUrl + this.shortModeSuffix).then(response => {
+      this.svg = response.data
+    });
+  },
+  updated() {
+    tippy('.each-day', { arrow: true });
   },
   methods: {
     recordData() {
@@ -191,6 +201,11 @@ export default {
       if (isSuccess === 'success') {
         // if action sucessed
         this.isSuccess = true
+
+        // update greaph svg
+        axios.get(this.graphUrl + this.shortModeSuffix).then(response => {
+          this.svg = response.data
+        });
 
         if (action === 'record') {
           this.msg = 'Successfully recorded'

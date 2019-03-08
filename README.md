@@ -11,6 +11,9 @@ The dashboard currently supports:
 #### 2018-10-25 now support short-mode! (you can toggle with upper-right switch)
 ![screen](./docs/screen-short-mode.gif "screen-short-mode-gif")
 
+#### 2019-03-08 support displaying svg with tippy
+![screen-tippy](./docs/screen-tippy.png "screen-tippy")
+
 ## Project setup
 ### 1. install
 ```

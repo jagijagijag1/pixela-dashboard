@@ -15,6 +15,7 @@
     "eslint-plugin-vue": "^4.7.1",
     "node-sass": "^4.9.4",
     "sass-loader": "^7.1.0",
+    "tippy.js": "^4.0.4",
     "vue": "^2.5.17"
   },
   "devDependencies": {

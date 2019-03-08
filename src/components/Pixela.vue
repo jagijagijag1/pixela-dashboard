@@ -5,12 +5,10 @@
     <div class="level">
       <div class="level-left">
         <div class="level-item">
-          <embed
+          <div
             v-if="loaded"
-            :src="graphUrl"
-            width="720"
-            style="display: inline-block"
-            class="is-pulled-right">
+            style="width:720px;"
+            v-html="svg"/>
         </div>
 
         <div class="level-item">
@@ -84,6 +82,7 @@
 
 <script>
 import axios from 'axios';
+import tippy from 'tippy.js';
 
 export default {
   props: {
@@ -109,7 +108,8 @@ export default {
       msg: '',
       isSuccess: null,
       isRecording: false,
-      isUpdating: false
+      isUpdating: false,
+      svg: ''
     }
   },
   created() {
@@ -122,6 +122,14 @@ export default {
     var MM = ('0' + (dateObj.getMonth() + 1)).slice(-2)
     var dd = ('0' + dateObj.getDate()).slice(-2)
     this.date = yyyy + MM + dd
+
+    // get svg content
+    axios.get(this.graphUrl).then(response => {
+      this.svg = response.data
+    });
+  },
+  updated() {
+    tippy('.each-day', { arrow: true });
   },
   methods: {
     recordData() {
@@ -196,6 +204,11 @@ export default {
         // if action sucessed
         this.isSuccess = true
 
+        // update greaph svg
+        axios.get(this.graphUrl).then(response => {
+          this.svg = response.data
+        });
+
         if (action === 'record') {
           this.msg = 'Successfully recorded'
         } else if (action === 'update') {
@@ -213,5 +226,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.pixela { margin-bottom:  1.25rem; }
+.pixela { margin-bottom:  1.5rem; }
 </style>
