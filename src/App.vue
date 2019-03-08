@@ -17,8 +17,8 @@
               <div class="level-item">
                 <div class="field">
                   <input 
-                    v-model="shortMode"
                     id="switchExample" 
+                    v-model="shortMode"
                     type="checkbox" 
                     name="switchExample" 
                     class="switch is-rtl is-small is-rounded">
