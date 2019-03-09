@@ -2,81 +2,57 @@
   <div class="pixela">
     <h2 class="title is-5">{{ graphName }}</h2>
 
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <div
-            v-if="loaded"
-            style="width:720px;"
-            v-html="svg"/>
-        </div>
+    <div class="columns">
+      <div
+        class="column is-10">
+        <div
+          v-if="loaded"
+          v-html="svg"/>
+      </div>
 
-        <div class="level-item">
-          <div>
-            <div class="field is-horizontal">
-              <div class="field-label is-small">
-                <label class="label">Date&ensp;&ensp;&ensp;&ensp;</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input 
-                      v-model="date" 
-                      type="text" 
-                      class="input is-small">
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div class="column">
+        <div class="label">Input</div>
 
-            <div class="field is-horizontal">
-              <div class="field-label is-small">
-                <label class="label">Quantity</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input 
-                      v-model="quantity" 
-                      type="text" 
-                      class="input is-small">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field is-horizontal">
-              <div class="field-label is-small"/>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <button 
-                      :class="{ 'is-loading': isRecording }"
-                      class="button is-primary is-small" 
-                      @click="recordData">Record</button>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <button 
-                      :class="{ 'is-loading': isUpdating }"
-                      class="button is-link is-small" 
-                      @click="updateData">Update</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p 
-              v-if="isSuccess"
-              class="help is-success is-center">{{ msg }}</p>
-            <p 
-              v-if="!isSuccess" 
-              class="help is-danger is-center">{{ msg }}</p>
+        <div class="field">
+          <label class="label is-small">Date</label>
+          <div class="control">
+            <input 
+              v-model="date" 
+              type="text" 
+              class="input is-small">
           </div>
         </div>
+
+        <div class="field">
+          <label class="label is-small">Quantity</label>
+          <div class="control">
+            <input 
+              v-model="quantity" 
+              type="text" 
+              class="input is-small">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button 
+              :class="{ 'is-loading': isUpdating }"
+              class="button is-link is-small" 
+              @click="updateData">Record / Update</button>
+          </div>
+        </div>
+
+        <p 
+          v-if="isSuccess"
+          class="help is-success is-center">{{ msg }}</p>
+        <p 
+          v-if="!isSuccess" 
+          class="help is-danger is-center">{{ msg }}</p>
+
       </div>
-      <div class="level-right"/>
+
     </div>
+
   </div>
 </template>
 
