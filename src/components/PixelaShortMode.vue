@@ -29,7 +29,6 @@
             <input 
               v-model="date" 
               type="text" 
-              style="width: 100px;"
               class="input is-small">
           </div>
         </div>
@@ -46,23 +45,16 @@
             <input 
               v-model="quantity" 
               type="text" 
-              style="width: 100px;"
               class="input is-small">
           </div>
         </div>
 
         <div class="columns is-centered is-marginless">
-          <div class="column is-narrow">
-            <button 
-              :class="{ 'is-loading': isRecording }"
-              class="button is-primary is-small" 
-              @click="recordData">Record</button>
-          </div>
-          <div class="column is-narrow ">
+          <div class="column is-narrow has-text-centered">
             <button 
               :class="{ 'is-loading': isUpdating }"
               class="button is-link is-small" 
-              @click="updateData">Update</button>
+              @click="updateData">Record / Update</button>
           </div>
         </div>
         <p 
@@ -104,7 +96,6 @@ export default {
       quantity: '0',
       msg: '',
       isSuccess: null,
-      isRecording: false,
       isUpdating: false,
       shortModeSuffix: '?mode=short',
       svg: ''
@@ -130,39 +121,13 @@ export default {
     tippy('.each-day', { arrow: true });
   },
   methods: {
-    recordData() {
-      // set target URL
-      var postUrl = this.graphUrl
-      this.initForm('record')
-
-      if (this.token === '' || this.date === '' | this.quantity === '') {
-        this.updateForm('record', 'fail')
-        this.msg = 'fill all input (USER-TOKEN, date, quantity)'
-        return
-      }
-
-      // POST this.date & this. quantity to this.graphName
-      axios({
-        method: 'post',
-        url: postUrl,
-        headers: { 'X-USER-TOKEN': this.token },
-        data: { date: this.date, quantity: this.quantity }
-      })
-      .then(response => {
-        console.log("record " + response.data.message);
-        this.updateForm('record', 'success')
-      }).catch(error => {
-        console.log(error);
-        this.updateForm('record', 'fail')
-      });
-    },
     updateData() {
       // set target URL
       var putUrl = this.graphUrl + '/' + this.date
-      this.initForm('update')
+      this.initForm()
 
       if (this.token === '' || this.date === '' | this.quantity === '') {
-        this.updateForm('record', 'fail')
+        this.updateForm('fail')
         this.msg = 'fill all input (USER-TOKEN, date, quantity)'
         return
       }
@@ -176,26 +141,21 @@ export default {
       })
       .then(response => {
         console.log("update " + response.data.message);
-        this.updateForm('update', 'success')
+        this.updateForm('success')
       }).catch(error => {
         console.log(error);
-        this.updateForm('update', 'fail')
+        this.updateForm('fail')
       });
     },
-    initForm(action) {
+    initForm() {
       // initialize record/update-related variables
       this.loaded = false
       this.msg = ''
-      if (action === 'record') {
-        this.isRecording = true
-      } else if (action === 'update') {
-        this.isUpdating = true
-      }
+      this.isUpdating = true
     },
-    updateForm(action, isSuccess) {
+    updateForm(isSuccess) {
       // update record/update-related variables
       this.loaded = true
-      this.isRecording = false
       this.isUpdating = false
 
       if (isSuccess === 'success') {
@@ -206,12 +166,7 @@ export default {
         axios.get(this.graphUrl + this.shortModeSuffix).then(response => {
           this.svg = response.data
         });
-
-        if (action === 'record') {
-          this.msg = 'Successfully recorded'
-        } else if (action === 'update') {
-          this.msg = 'Successfully updated'
-        }
+        this.msg = 'Successfully record/updated'
       } else {
         // if action failed
         this.isSuccess = false
