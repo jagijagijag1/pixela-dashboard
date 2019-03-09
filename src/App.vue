@@ -34,12 +34,10 @@
             <div class="level-left"/>
             <div class="level-right">
               <div class="level-item">
-                <label class="label is-small has-text-white is-marginless">USER-ID&ensp;&ensp;</label>
+                <label class="label is-small has-text-white is-marginless">USER-ID:&ensp;&ensp;</label>
                 <label class="label is-small has-text-white is-marginless">{{ user }}</label>
-              </div>
-              <label class="label is-small has-text-white is-marginless">/&ensp;</label>
-              <div class="level-item">
-                <label class="label is-small has-text-white is-marginless">USER-TOKEN&ensp;&ensp;</label>
+                <label class="label is-small has-text-white is-marginless">&ensp;/&ensp;</label>
+                <label class="label is-small has-text-white is-marginless">USER-TOKEN:&ensp;&ensp;</label>
                 <div class="control">
                   <input 
                     v-model="token" 
