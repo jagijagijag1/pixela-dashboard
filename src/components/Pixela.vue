@@ -2,81 +2,57 @@
   <div class="pixela">
     <h2 class="title is-5">{{ graphName }}</h2>
 
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <div
-            v-if="loaded"
-            style="width:720px;"
-            v-html="svg"/>
-        </div>
+    <div class="columns">
+      <div
+        class="column is-10">
+        <div
+          v-if="loaded"
+          v-html="svg"/>
+      </div>
 
-        <div class="level-item">
-          <div>
-            <div class="field is-horizontal">
-              <div class="field-label is-small">
-                <label class="label">Date&ensp;&ensp;&ensp;&ensp;</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input 
-                      v-model="date" 
-                      type="text" 
-                      class="input is-small">
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div class="column">
+        <div class="label">Input</div>
 
-            <div class="field is-horizontal">
-              <div class="field-label is-small">
-                <label class="label">Quantity</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input 
-                      v-model="quantity" 
-                      type="text" 
-                      class="input is-small">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field is-horizontal">
-              <div class="field-label is-small"/>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <button 
-                      :class="{ 'is-loading': isRecording }"
-                      class="button is-primary is-small" 
-                      @click="recordData">Record</button>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <button 
-                      :class="{ 'is-loading': isUpdating }"
-                      class="button is-link is-small" 
-                      @click="updateData">Update</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p 
-              v-if="isSuccess"
-              class="help is-success is-center">{{ msg }}</p>
-            <p 
-              v-if="!isSuccess" 
-              class="help is-danger is-center">{{ msg }}</p>
+        <div class="field">
+          <label class="label is-small">Date</label>
+          <div class="control">
+            <input 
+              v-model="date" 
+              type="text" 
+              class="input is-small">
           </div>
         </div>
+
+        <div class="field">
+          <label class="label is-small">Quantity</label>
+          <div class="control">
+            <input 
+              v-model="quantity" 
+              type="text" 
+              class="input is-small">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button 
+              :class="{ 'is-loading': isUpdating }"
+              class="button is-link is-small" 
+              @click="updateData">Record / Update</button>
+          </div>
+        </div>
+
+        <p 
+          v-if="isSuccess"
+          class="help is-success is-center">{{ msg }}</p>
+        <p 
+          v-if="!isSuccess" 
+          class="help is-danger is-center">{{ msg }}</p>
+
       </div>
-      <div class="level-right"/>
+
     </div>
+
   </div>
 </template>
 
@@ -107,7 +83,6 @@ export default {
       quantity: '0',
       msg: '',
       isSuccess: null,
-      isRecording: false,
       isUpdating: false,
       svg: ''
     }
@@ -132,39 +107,13 @@ export default {
     tippy('.each-day', { arrow: true });
   },
   methods: {
-    recordData() {
-      // set target URL
-      var postUrl = this.graphUrl
-      this.initForm('record')
-
-      if (this.token === '' || this.date === '' | this.quantity === '') {
-        this.updateForm('record', 'fail')
-        this.msg = 'fill all input (USER-TOKEN, date, quantity)'
-        return
-      }
-
-      // POST this.date & this. quantity to this.graphName
-      axios({
-        method: 'post',
-        url: postUrl,
-        headers: { 'X-USER-TOKEN': this.token },
-        data: { date: this.date, quantity: this.quantity }
-      })
-      .then(response => {
-        console.log("record " + response.data.message);
-        this.updateForm('record', 'success')
-      }).catch(error => {
-        console.log(error);
-        this.updateForm('record', 'fail')
-      });
-    },
     updateData() {
       // set target URL
       var putUrl = this.graphUrl + '/' + this.date
-      this.initForm('update')
+      this.initForm()
 
       if (this.token === '' || this.date === '' | this.quantity === '') {
-        this.updateForm('record', 'fail')
+        this.updateForm('fail')
         this.msg = 'fill all input (USER-TOKEN, date, quantity)'
         return
       }
@@ -175,29 +124,23 @@ export default {
         url: putUrl,
         headers: { 'X-USER-TOKEN': this.token },
         data: { quantity: this.quantity }
-      })
-      .then(response => {
+      }).then(response => {
         console.log("update " + response.data.message);
-        this.updateForm('update', 'success')
+        this.updateForm('success')
       }).catch(error => {
         console.log(error);
-        this.updateForm('update', 'fail')
+        this.updateForm('fail')
       });
     },
-    initForm(action) {
+    initForm() {
       // initialize record/update-related variables
       this.loaded = false
       this.msg = ''
-      if (action === 'record') {
-        this.isRecording = true
-      } else if (action === 'update') {
-        this.isUpdating = true
-      }
+      this.isUpdating = true
     },
-    updateForm(action, isSuccess) {
+    updateForm(isSuccess) {
       // update record/update-related variables
       this.loaded = true
-      this.isRecording = false
       this.isUpdating = false
 
       if (isSuccess === 'success') {
@@ -208,12 +151,7 @@ export default {
         axios.get(this.graphUrl).then(response => {
           this.svg = response.data
         });
-
-        if (action === 'record') {
-          this.msg = 'Successfully recorded'
-        } else if (action === 'update') {
-          this.msg = 'Successfully updated'
-        }
+        this.msg = 'Successfully recorded/updated'
       } else {
         // if action failed
         this.isSuccess = false

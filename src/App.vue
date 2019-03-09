@@ -61,23 +61,18 @@
     <div
       v-if="!shortMode"
       class="container">
-      <div class="columns">
-        <div class="column is-offset-1">
-          <Pixela
-            v-for="(g, key, index) in graphs"
-            :key="index"
-            :user= "user"
-            :token= "token"
-            :graph-name="g" />
-        </div>
-        <div class="column is-1"/>
-      </div>
+      <Pixela
+        v-for="(g, key, index) in graphs"
+        :key="index"
+        :user= "user"
+        :token= "token"
+        :graph-name="g" />
     </div>
 
     <div
       v-if="shortMode"
       class="container">
-      <div class="columns is-centered is-multiline">
+      <div class="columns is-centered is-multiline is-mobile">
         <PixelaShortMode
           v-for="(g, key, index) in graphs"
           :key="index"
