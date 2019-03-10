@@ -4,7 +4,7 @@
 
     <div class="columns">
       <div
-        class="column is-10">
+        class="column is-8">
         <div
           v-if="loaded"
           v-html="svg"/>
@@ -51,16 +51,26 @@
 
       </div>
 
+      <div class="column">
+        <PixelaStreaks
+          v-if="svg != ''"
+          :svg= "svg" />
+      </div>
+
     </div>
 
   </div>
 </template>
 
 <script>
+import PixelaStreaks from './PixelaStreaks.vue'
 import axios from 'axios';
 import tippy from 'tippy.js';
 
 export default {
+  components: {
+    PixelaStreaks
+  },
   props: {
     user: {
       type: String,
