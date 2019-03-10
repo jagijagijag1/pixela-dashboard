@@ -14,6 +14,9 @@ The dashboard currently supports:
 #### 2019-03-08 support displaying svg with tippy
 ![screen-tippy](./docs/screen-tippy.png "screen-tippy")
 
+#### 2019-03-10 support displaying streaks for a graph
+![screen-streaks](./docs/screen-streaks.png "screen-streaks")
+
 ## Project setup
 ### 1. install
 ```
