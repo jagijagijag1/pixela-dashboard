@@ -73,6 +73,17 @@
 import axios from 'axios';
 import tippy from 'tippy.js';
 
+const SHORT_MODE_SUFFIX = '?mode=short'
+
+function formDate() {
+  const dateObj = new Date()
+  const yyyy = dateObj.getFullYear()
+  const MM = ('0' + (dateObj.getMonth() + 1)).slice(-2)
+  const dd = ('0' + dateObj.getDate()).slice(-2)
+
+  return yyyy + MM + dd
+}
+
 export default {
   props: {
     user: {
@@ -97,7 +108,6 @@ export default {
       msg: '',
       isSuccess: null,
       isUpdating: false,
-      shortModeSuffix: '?mode=short',
       svg: ''
     }
   },
@@ -106,14 +116,10 @@ export default {
     this.graphUrl = "https://pixe.la/v1/users/" + this.user + "/graphs/" + this.graphName
 
     // set today's date string
-    var dateObj = new Date()
-    var yyyy = dateObj.getFullYear()
-    var MM = ('0' + (dateObj.getMonth() + 1)).slice(-2)
-    var dd = ('0' + dateObj.getDate()).slice(-2)
-    this.date = yyyy + MM + dd
+    this.date = formDate()
 
     // get svg content
-    axios.get(this.graphUrl + this.shortModeSuffix).then(response => {
+    axios.get(this.graphUrl + SHORT_MODE_SUFFIX).then(response => {
       this.svg = response.data
     });
   },
@@ -163,7 +169,7 @@ export default {
         this.isSuccess = true
 
         // update greaph svg
-        axios.get(this.graphUrl + this.shortModeSuffix).then(response => {
+        axios.get(this.graphUrl + SHORT_MODE_SUFFIX).then(response => {
           this.svg = response.data
         });
         this.msg = 'Successfully record/updated'

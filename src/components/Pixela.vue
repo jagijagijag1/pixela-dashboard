@@ -67,6 +67,15 @@ import PixelaStreaks from './PixelaStreaks.vue'
 import axios from 'axios';
 import tippy from 'tippy.js';
 
+function formDate() {
+  const dateObj = new Date()
+  const yyyy = dateObj.getFullYear()
+  const MM = ('0' + (dateObj.getMonth() + 1)).slice(-2)
+  const dd = ('0' + dateObj.getDate()).slice(-2)
+
+  return yyyy + MM + dd
+}
+
 export default {
   components: {
     PixelaStreaks
@@ -102,11 +111,7 @@ export default {
     this.graphUrl = "https://pixe.la/v1/users/" + this.user + "/graphs/" + this.graphName
 
     // set today's date string
-    var dateObj = new Date()
-    var yyyy = dateObj.getFullYear()
-    var MM = ('0' + (dateObj.getMonth() + 1)).slice(-2)
-    var dd = ('0' + dateObj.getDate()).slice(-2)
-    this.date = yyyy + MM + dd
+    this.date = formDate()
 
     // get svg content
     axios.get(this.graphUrl).then(response => {
@@ -119,8 +124,12 @@ export default {
   methods: {
     updateData() {
       // set target URL
-      var putUrl = this.graphUrl + '/' + this.date
-      this.initForm()
+      const putUrl = this.graphUrl + '/' + this.date
+
+      // initialize record/update-related variables
+      this.loaded = false
+      this.msg = ''
+      this.isUpdating = true
 
       if (this.token === '' || this.date === '' | this.quantity === '') {
         this.updateForm('fail')
@@ -141,12 +150,6 @@ export default {
         console.log(error);
         this.updateForm('fail')
       });
-    },
-    initForm() {
-      // initialize record/update-related variables
-      this.loaded = false
-      this.msg = ''
-      this.isUpdating = true
     },
     updateForm(isSuccess) {
       // update record/update-related variables
@@ -174,5 +177,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.pixela { margin-bottom:  1.5rem; }
 </style>
