@@ -57,10 +57,11 @@ export default {
       // parse svg to dom
       const domParser = new DOMParser();
       const parsedSVGDoc = domParser.parseFromString(this.svg, 'image/svg+xml')
-      const parsedSVG = parsedSVGDoc.childNodes[0]
+      console.log("hoge")
+      const parsedSVG = parsedSVGDoc.childNodes[1]
 
       // get rooot element of tip erctangles
-      const rootg = parsedSVG.childNodes[1] // g tag
+      const rootg = parsedSVG.childNodes[3] // g tag
       const children = [].slice.call(rootg.childNodes, 0).reverse()
       var tmpStreak = 0
       children.forEach(e => {
