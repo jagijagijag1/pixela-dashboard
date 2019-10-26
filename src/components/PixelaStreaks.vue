@@ -45,6 +45,11 @@ export default {
       longest: -1 
     }
   },
+  watch: {
+    svg: function() {
+      this.calcStreaks()
+    }
+  },
   mounted() {
     this.calcStreaks()
   },
@@ -57,7 +62,6 @@ export default {
       // parse svg to dom
       const domParser = new DOMParser();
       const parsedSVGDoc = domParser.parseFromString(this.svg, 'image/svg+xml')
-      console.log("hoge")
       const parsedSVG = parsedSVGDoc.childNodes[1]
 
       // get rooot element of tip erctangles
