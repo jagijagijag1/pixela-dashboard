@@ -25,7 +25,10 @@
     "vue-template-compiler": "^2.5.17"
   },
   "resolutions": {
-    "serialize-javascript": "^2.1.1"
+    "serialize-javascript": "^2.1.1",
+    "minimist": "^1.2.3",
+    "acorn": "^6.4.1",
+    "kind-of": "^6.0.3"
   },
   "eslintConfig": {
     "root": true,
