@@ -25,7 +25,8 @@
   "resolutions": {
     "serialize-javascript": "^2.1.1",
     "minimist": "^1.2.3",
-    "kind-of": "^6.0.3"
+    "kind-of": "^6.0.3",
+    "webpack": "^4.0.0"
   },
   "eslintConfig": {
     "root": true,
