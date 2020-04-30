@@ -2,7 +2,7 @@
   "name": "pixela-dashboard-pwa",
   "short_name": "pixelaboard",
   "theme_color": "#00a3af",
-  "background_color": "#44617b",
+  "background_color": "#FFFFFF",
   "display": "standalone",
   "start_url": "./index.html",
   "icons": [
