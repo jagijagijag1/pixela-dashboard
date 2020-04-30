@@ -115,4 +115,5 @@ export default {
   color: #2c3e50;
   margin-top: 20px;
 }
+body { overflow-x: hidden; }
 </style>
