@@ -16,10 +16,12 @@
         <div class="field">
           <label class="label is-small">Date</label>
           <div class="control">
-            <input 
-              v-model="date" 
-              type="text" 
-              class="input is-small">
+            <DatePicker v-model="dateObj" :popover="{ placement: 'bottom', visibility: 'click' }">
+              <input 
+                v-model="date" 
+                type="text" 
+                class="input is-small" readonly>
+            </DatePicker>
           </div>
         </div>
 
@@ -66,9 +68,9 @@
 import PixelaStreaks from './PixelaStreaks.vue'
 import axios from 'axios';
 import tippy from 'tippy.js';
+import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 
-function formDate() {
-  const dateObj = new Date()
+function formDate(dateObj) {
   const yyyy = dateObj.getFullYear()
   const MM = ('0' + (dateObj.getMonth() + 1)).slice(-2)
   const dd = ('0' + dateObj.getDate()).slice(-2)
@@ -78,7 +80,8 @@ function formDate() {
 
 export default {
   components: {
-    PixelaStreaks
+    PixelaStreaks,
+    DatePicker
   },
   props: {
     user: {
@@ -98,7 +101,7 @@ export default {
     return {
       loaded: true,
       graphUrl: '',
-      date: '', 
+      dateObj: new Date(),
       quantity: '0',
       msg: '',
       isSuccess: null,
@@ -106,12 +109,14 @@ export default {
       svg: ''
     }
   },
+  computed: {
+    date: function () {
+      return formDate(this.dateObj)
+    }
+  },
   created() {
     // set graph URL
     this.graphUrl = "https://pixe.la/v1/users/" + this.user + "/graphs/" + this.graphName
-
-    // set today's date string
-    this.date = formDate()
 
     // get svg content
     axios.get(this.graphUrl).then(response => {
