@@ -14,7 +14,7 @@
         <div class="label">Input</div>
 
         <div class="field has-addons">
-          <div class="control has-icons-left">
+          <div class="control has-icons-left is-expanded">
               <input 
                 v-model="date" 
                 type="number" 
@@ -34,7 +34,7 @@
         </div>
 
         <div class="field has-addons">
-          <div class="control has-icons-left">
+          <div class="control has-icons-left is-expanded">
             <input 
               v-model="quantityNum" 
               type="number" 
