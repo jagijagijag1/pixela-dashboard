@@ -1,7 +1,6 @@
 <template>
   <div
-    class="pixela column is-narrow"
-    style="width: 290px;">
+    class="pixela column is-narrow is-one-quarter">
     <article class="message">
       <div class="message-header has-background-grey">
         <p>{{ graphName }}</p>
@@ -17,35 +16,46 @@
             v-html="svg"/>
         </div>
 
-        <div
-          class="columns is-vcentered is-marginless is-centered"
-          style="padding-bottom: 5px;">
-          <div class="column is-narrow is-paddingless">
-            <label
-              class="label is-small"
-              style="width: 60px;">Data</label>
+        <div class="field has-addons">
+          <div class="control has-icons-left">
+              <input 
+                v-model="date" 
+                type="number" 
+                class="input"
+                placeholder="Date">
+            <span class="icon is-left">
+              <i class="far fa-calendar-alt"></i>
+            </span>
           </div>
-          <div class="column is-narrow is-paddingless">
-            <input 
-              v-model="date" 
-              type="text" 
-              class="input is-small">
+          <div class="control">
+            <DatePicker v-model="dateObj" :popover="{ placement: 'bottom', visibility: 'click' }">
+              <button class="button">
+                <i class="fas fa-calendar-check"></i>
+              </button>
+            </DatePicker>
           </div>
         </div>
 
-        <div
-          class="columns is-vcentered is-marginless is-centered"
-          style="padding-bottom: 5px;">
-          <div class="column is-narrow is-paddingless">
-            <label
-              class="label is-small"
-              style="width: 60px;">Quantity</label>
-          </div>
-          <div class="column is-narrow is-paddingless">
+        <div class="field has-addons">
+          <div class="control has-icons-left">
             <input 
-              v-model="quantity" 
-              type="text" 
-              class="input is-small">
+              v-model="quantityNum" 
+              type="number" 
+              class="input"
+              placeholder="Quantity">
+            <span class="icon is-left">
+              <i class="fas fa-th"></i>
+            </span>
+          </div>
+          <div class="control">
+            <button class="button" @click="quantityNum = quantityNum ? quantityNum + 1 : 1">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          <div class="control">
+            <button class="button" @click="quantityNum = quantityNum ? quantityNum - 1 : -1">
+              <i class="fas fa-minus"></i>
+            </button>
           </div>
         </div>
 
@@ -53,7 +63,7 @@
           <div class="column is-narrow has-text-centered">
             <button 
               :class="{ 'is-loading': isUpdating }"
-              class="button is-link is-small" 
+              class="button is-link" 
               @click="updateData">Record / Update</button>
           </div>
         </div>
@@ -72,11 +82,11 @@
 <script>
 import axios from 'axios';
 import tippy from 'tippy.js';
+import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 
 const SHORT_MODE_SUFFIX = '?mode=short'
 
-function formDate() {
-  const dateObj = new Date()
+function formDate(dateObj) {
   const yyyy = dateObj.getFullYear()
   const MM = ('0' + (dateObj.getMonth() + 1)).slice(-2)
   const dd = ('0' + dateObj.getDate()).slice(-2)
@@ -85,6 +95,9 @@ function formDate() {
 }
 
 export default {
+  components: {
+    DatePicker
+  },
   props: {
     user: {
       type: String,
@@ -103,20 +116,28 @@ export default {
     return {
       loaded: true,
       graphUrl: '',
-      date: '', 
-      quantity: '0',
+      date: '',
+      dateObj: new Date(),
+      quantityNum: null,
       msg: '',
       isSuccess: null,
       isUpdating: false,
       svg: ''
     }
   },
+  computed: {
+    quantity: function () {
+      return this.quantityNum + ''
+    }
+  },
+  watch: {
+    dateObj: function (newDateObj) {
+      this.date = formDate(newDateObj)
+    }
+  },
   created() {
     // set graph URL
     this.graphUrl = "https://pixe.la/v1/users/" + this.user + "/graphs/" + this.graphName
-
-    // set today's date string
-    this.date = formDate()
 
     // get svg content
     axios.get(this.graphUrl + SHORT_MODE_SUFFIX).then(response => {
