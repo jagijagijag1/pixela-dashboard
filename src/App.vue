@@ -83,6 +83,7 @@
 import Pixela from './components/Pixela.vue'
 import PixelaShortMode from './components/PixelaShortMode.vue'
 import config from './pixela-config.json'
+import { isMobile } from 'mobile-device-detect';
 
 export default {
   name: 'App',
@@ -95,7 +96,7 @@ export default {
       user: config.user,
       token: '',
       graphs: config.graphs,
-      shortMode: false
+      shortMode: isMobile
     }
   }
 }
