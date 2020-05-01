@@ -13,25 +13,46 @@
       <div class="column">
         <div class="label">Input</div>
 
-        <div class="field">
-          <label class="label is-small">Date</label>
-          <div class="control">
-            <DatePicker v-model="dateObj" :popover="{ placement: 'bottom', visibility: 'click' }">
+        <div class="field has-addons">
+          <div class="control has-icons-left">
               <input 
                 v-model="date" 
-                type="text" 
-                class="input is-small" readonly>
+                type="number" 
+                class="input"
+                placeholder="Date">
+            <span class="icon is-left">
+              <i class="far fa-calendar-alt"></i>
+            </span>
+          </div>
+          <div class="control">
+            <DatePicker v-model="dateObj" :popover="{ placement: 'bottom', visibility: 'click' }">
+              <button class="button">
+                <i class="fas fa-calendar-check"></i>
+              </button>
             </DatePicker>
           </div>
         </div>
 
-        <div class="field">
-          <label class="label is-small">Quantity</label>
-          <div class="control">
+        <div class="field has-addons">
+          <div class="control has-icons-left">
             <input 
-              v-model="quantity" 
-              type="text" 
-              class="input is-small">
+              v-model="quantityNum" 
+              type="number" 
+              class="input"
+              placeholder="Quantity">
+            <span class="icon is-left">
+              <i class="fas fa-th"></i>
+            </span>
+          </div>
+          <div class="control">
+            <button class="button" @click="quantityNum = quantityNum ? quantityNum + 1 : 1">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          <div class="control">
+            <button class="button" @click="quantityNum = quantityNum ? quantityNum - 1 : -1">
+              <i class="fas fa-minus"></i>
+            </button>
           </div>
         </div>
 
@@ -39,7 +60,7 @@
           <div class="control">
             <button 
               :class="{ 'is-loading': isUpdating }"
-              class="button is-link is-small" 
+              class="button is-link" 
               @click="updateData">Record / Update</button>
           </div>
         </div>
@@ -101,8 +122,9 @@ export default {
     return {
       loaded: true,
       graphUrl: '',
+      date: '',
       dateObj: new Date(),
-      quantity: '0',
+      quantityNum: null,
       msg: '',
       isSuccess: null,
       isUpdating: false,
@@ -110,8 +132,13 @@ export default {
     }
   },
   computed: {
-    date: function () {
-      return formDate(this.dateObj)
+    quantity: function () {
+      return this.quantityNum + ''
+    }
+  },
+  watch: {
+    dateObj: function (newDateObj) {
+      this.date = formDate(newDateObj)
     }
   },
   created() {
@@ -182,4 +209,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.pixela {
+  margin-bottom: 1%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 </style>
