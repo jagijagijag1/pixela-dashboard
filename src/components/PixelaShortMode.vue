@@ -28,7 +28,7 @@
             </span>
           </div>
           <div class="control">
-            <DatePicker v-model="dateObj" :popover="{ placement: 'bottom', visibility: 'click' }">
+            <DatePicker v-model="dateObj" :popover="{ placement: 'bottom-end', visibility: 'click' }">
               <button class="button">
                 <i class="fas fa-calendar-check"></i>
               </button>
