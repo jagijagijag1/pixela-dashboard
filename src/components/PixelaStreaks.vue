@@ -1,30 +1,25 @@
 <template>
   <div class="pixela-streak">
     <div class="label">Streaks</div>
-    <div class="has-text-right is-size-6">
-      type: 
-      <div class="select is-small">
-        <select
-          v-model="goal"
-          @change="calcStreaks">
-          <option>7</option>
-          <option>6</option>
-          <option>5</option>
-          <option>4</option>
-          <option>3</option>
-          <option>2</option>
-          <option>1</option>
-        </select>
-      </div> per week
-    </div>
-    <br>
-
-    <div class="has-text-right has-text-primary has-text-weight-bold is-size-5">
-      <small>current:</small> {{ current }} <small>streaks</small>
+    <div class="field is-size-6 is-vertical-center is-pulled-right">
+      <div class="small-label">Goal: </div>
+      <input 
+        v-model="goal" 
+        type="number" 
+        class="input is-small"
+        min="1"
+        max="7"
+        style="width: 2.5rem; text-align: center;"
+        @change="calcStreaks">
+      <div class="small-label">/ week</div>
     </div>
 
     <div class="has-text-right has-text-primary has-text-weight-bold is-size-5">
-      <small>longest:</small> {{ longest }} <small>streaks</small>
+      <small>current:</small> <big>{{ current }}</big> <small>streaks</small>
+    </div>
+
+    <div class="has-text-right has-text-primary has-text-weight-bold is-size-5">
+      <small>best:</small> <big>{{ longest }}</big> <small>streaks</small>
     </div>
   </div>
 </template>
@@ -123,4 +118,13 @@ export default {
 </script>
 
 <style scoped>
+.is-vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.small-label {
+  padding-left: 5%;
+  padding-right: 5%;
+}
 </style>
