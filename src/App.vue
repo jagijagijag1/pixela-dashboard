@@ -52,13 +52,9 @@
       </div>
     </section>
 
-    <div class="columns">
-      <div class="column"/>
-    </div>
-
     <div
       v-if="!shortMode"
-      class="container">
+      class="container graph-container">
       <Pixela
         v-for="(g, key, index) in graphs"
         :key="index"
@@ -69,8 +65,8 @@
 
     <div
       v-if="shortMode"
-      class="container">
-      <div class="columns is-centered is-multiline is-mobile">
+      class="container graph-container">
+      <div class="columns is-centered is-multiline">
         <PixelaShortMode
           v-for="(g, key, index) in graphs"
           :key="index"
@@ -116,4 +112,10 @@ export default {
   margin-top: 20px;
 }
 body { overflow-x: hidden; }
+.graph-container {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
 </style>
