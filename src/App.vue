@@ -41,7 +41,7 @@
                 <div class="control">
                   <input 
                     v-model="token" 
-                    type="text" 
+                    type="password" 
                     class="input is-small">
                 </div>
               </div>
