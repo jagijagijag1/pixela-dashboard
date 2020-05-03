@@ -1,5 +1,6 @@
 # pixela-dashboard
 pixela-dashboard is an unofficial dashboard web app for [Pixela](https://pixe.la/) graphs.
+- You can try demo version from [HERE](https://wild-heat.surge.sh/)
 
 ![screen](./docs/screen.png "screen")
 
@@ -16,6 +17,9 @@ The dashboard currently supports:
 
 #### 2019-03-10 support displaying streaks for a graph
 ![screen-streaks](./docs/screen-streaks.png "screen-streaks")
+
+#### 2020-05-02 support PWA mode
+![screen-streaks](./docs/screen-pwa.png "screen-streaks")
 
 ## Project setup
 ### 1. install
