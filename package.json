@@ -30,6 +30,7 @@
     "vue-template-compiler": "^2.5.17"
   },
   "resolutions": {
+    "dot-prop": "^5.1.1",
     "serialize-javascript": "^2.1.1",
     "minimist": "^1.2.3",
     "kind-of": "^6.0.3",
