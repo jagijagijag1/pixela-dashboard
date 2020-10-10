@@ -36,6 +36,7 @@
     "kind-of": "^6.0.3",
     "webpack": "^4.0.0",
     "yargs-parser": "^13.1.2",
+    "node-forge": "^0.10.0",
     "core-js": "^3.0.0"
   },
   "eslintConfig": {
