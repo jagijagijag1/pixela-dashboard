@@ -11,13 +11,16 @@
     "axios": "^0.21.2",
     "bulma": "^0.7.2",
     "bulma-extensions": "^3.0.0",
+    "core-js": "^3.0.0",
+    "dot-prop": "^5.1.1",
     "mobile-device-detect": "^0.3.3",
     "node-sass": "^4.13.1",
     "register-service-worker": "^1.7.1",
     "sass-loader": "^8.0.2",
     "tippy.js": "^4.0.4",
     "v-calendar": "^1.0.0-beta.23",
-    "vue": "^2.5.17"
+    "vue": "^2.5.17",
+    "webpack": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.3.1",
